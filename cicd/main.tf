@@ -58,7 +58,7 @@ resource "aws_key_pair" "deployer" {
 #nexus runs on 8081 port
 module "nexus" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  ami = data.aws_ami.nexus_ami_info
+  ami = data.aws_ami.nexus_ami_info.id
   name = "nexus"
   instance_type          = "t3.medium"
   vpc_security_group_ids = ["sg-0b444882f9979b624"]
