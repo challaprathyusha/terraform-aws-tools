@@ -2,7 +2,7 @@
 module "jenkins" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   ami = data.aws_ami.ami_info.id
-  name = "jenkins-tf"
+  name = "jenkins-controller"
 
   instance_type          = "t3.small"
   vpc_security_group_ids = ["sg-0b444882f9979b624"]
@@ -16,7 +16,7 @@ module "jenkins" {
   #userdata to configure jenkins in the server
   user_data = file("jenkins.sh")
   tags = {
-     Name = "jenkins-tf"
+     Name = "jenkins-controller"
   }
        
 }
@@ -56,6 +56,7 @@ resource "aws_key_pair" "deployer" {
 
 #creating nexus server using terraform aws ec2 opensource module
 #nexus runs on 8081 port
+#username=ubuntu and keypair to login to nexus server
 module "nexus" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   ami = data.aws_ami.nexus_ami_info.id
